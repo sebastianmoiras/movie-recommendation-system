@@ -1,9 +1,11 @@
+import os
 import jwt
 import datetime
 from fastapi import HTTPException, status
+from dotenv import load_dotenv
 
-SECRET_KEY = "tokenJonathan2702269633SebastianMoiras"
-ALGORITHM = "HS256"
+SECRET_KEY = os.getenv("SECRET_KEY", "default-secret") 
+ALGORITHM = os.getenv("ALGORITHM", "HS256")
 
 from fastapi import HTTPException, status
 
@@ -22,4 +24,5 @@ def verify_token(token: str):
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Token expired")
     except jwt.InvalidTokenError:
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid token")
+
 
