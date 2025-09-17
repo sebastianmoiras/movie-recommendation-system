@@ -1,0 +1,21 @@
+version: "3.8"
+
+services:
+  backend:
+    image: jonathansebastianmoiras/notflix-backend:latest
+    restart: always
+    container_name: notflix-backend
+    ports:
+      - "8000:8000"
+    env_file:
+      - ./BE/.env
+
+  frontend:
+    image: jonathansebastianmoiras/notflix-frontend:latest
+    container_name: notflix-frontend
+    ports:
+      - "8501:8501"
+    env_file:
+      - ./FE/.env
+    depends_on:
+      - backend
