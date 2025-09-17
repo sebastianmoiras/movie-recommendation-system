@@ -7,20 +7,16 @@ def signup_user(name, email, password, age, nationality, gender, preferred_genre
     conn = get_connection()
     cursor = conn.cursor()
 
-    # --- validasi email ---
     if not re.match(r"[^@]+@[^@]+\.[^@]+", email):
         return {"success": False, "message": "Format email tidak valid"}
 
-    # --- cek apakah email sudah ada ---
     cursor.execute("SELECT 1 FROM users WHERE email = %s", (email,))
     if cursor.fetchone():
         conn.close()
         return {"success": False, "message": "Email already existed"}
 
-    # --- hash password ---
     password_hash = bcrypt.hashpw(password.encode("utf-8"), bcrypt.gensalt()).decode("utf-8")
 
-    # --- INSERT user ---
     cursor.execute("""
         INSERT INTO users (name, email, password_hash, age, nationality, gender)
         VALUES (%s, %s, %s, %s, %s, %s)
@@ -28,7 +24,6 @@ def signup_user(name, email, password, age, nationality, gender, preferred_genre
     """, (name, email, password_hash, age, nationality, gender))
     userid = cursor.fetchone()[0]
 
-    # --- simpan preferred genres ---
     for gid in preferred_genres:
         cursor.execute("INSERT INTO user_genres (userid, genreid) VALUES (%s, %s)", (userid, gid))
 
@@ -55,4 +50,5 @@ def login_user(email: str, password: str):
 
     token = create_token(userid, name)
     return {"success": True, "token": token, "userid": userid, "name": name}
+
 
