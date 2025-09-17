@@ -48,7 +48,7 @@ def search_by_embedding(query: str, n_results: int = 10):
     unique = []
 
     for idx, md in enumerate(results["metadatas"][0]):
-        movieid = results["ids"][0][idx]   # ambil id dari chroma
+        movieid = results["ids"][0][idx] 
         if md["title"] not in seen:
             seen.add(md["title"])
             unique.append({
@@ -61,3 +61,4 @@ def search_by_embedding(query: str, n_results: int = 10):
             break
 
     return unique
+
