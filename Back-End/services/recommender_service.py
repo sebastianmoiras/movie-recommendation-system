@@ -3,9 +3,7 @@ from sklearn.metrics.pairwise import cosine_similarity
 from db.connection import get_connection
 
 
-# ---------------------------
 # 1. Tambah / Update Feedback
-# ---------------------------
 def add_feedback(userid: int, movieid: int, rating: int, liked: bool):
     if rating < 1 or rating > 5:
         return {"success": False, "message": "Rating harus antara 1 sampai 5"}
@@ -33,9 +31,7 @@ def add_feedback(userid: int, movieid: int, rating: int, liked: bool):
     return {"success": True, "message": "Feedback saved!"}
 
 
-# ---------------------------
 # 2. Skor gabungan rating+like
-# ---------------------------
 def compute_score(rating, liked):
     score = rating
     if liked == 1:  # like
@@ -45,9 +41,7 @@ def compute_score(rating, liked):
     return score
 
 
-# ---------------------------
 # 3. Rekomendasi User-Based
-# ---------------------------
 def get_recommendation(userid: int, limit: int = 10, threshold: float = 0.5):
     conn = get_connection()
     cursor = conn.cursor()
@@ -57,16 +51,13 @@ def get_recommendation(userid: int, limit: int = 10, threshold: float = 0.5):
     if not rows:
         return {"method": "no-feedback", "movies": []}
 
-    # feedback → dataframe
     df = pd.DataFrame.from_records(rows, columns=["userid", "movieid", "rating", "liked"])
     df["score"] = df.apply(lambda r: compute_score(r["rating"], r["liked"]), axis=1)
     
-    # user-movie matrix
     user_movie_matrix = df.pivot_table(
         index="userid", columns="movieid", values="score"
     ).fillna(0)
 
-    # kalau user belum ada feedback
     if userid not in user_movie_matrix.index:
         conn.close()
         return _fallback_preferred_genres(userid, limit)
@@ -108,7 +99,6 @@ def get_recommendation(userid: int, limit: int = 10, threshold: float = 0.5):
 
     top_user = similar_users.index[0]
 
-    # ambil film yang user mirip suka, tapi target user belum kasih feedback
     target_movies = set(df[df.userid == userid].movieid)
     rec_movies = df[(df.userid == top_user) & (~df.movieid.isin(target_movies))]
 
@@ -117,11 +107,10 @@ def get_recommendation(userid: int, limit: int = 10, threshold: float = 0.5):
         return _fallback_preferred_genres(userid, limit)
 
     movie_ids = rec_movies.movieid.unique().tolist()
-    if not movie_ids:  # kalau kosong, fallback
+    if not movie_ids: 
         conn.close()
         return _fallback_preferred_genres(userid, limit)
 
-    # PostgreSQL pakai %s, bukan ?
     placeholders = ",".join(["%s"] * len(movie_ids))
     cursor.execute(f"""
         SELECT movieid, title, poster_url
@@ -135,9 +124,7 @@ def get_recommendation(userid: int, limit: int = 10, threshold: float = 0.5):
     return {"method": "user+demographic", "movies": movies[:limit]}
 
 
-# ---------------------------
 # 4. Fallback ke Preferred Genres
-# ---------------------------
 def _fallback_preferred_genres(userid: int, limit: int = 10):
     conn = get_connection()
     cursor = conn.cursor()
@@ -192,4 +179,5 @@ def get_liked_movies(userid: int, limit: int = 50):
         {"movieid": r[0], "title": r[1], "poster_url": r[2]}
         for r in rows
     ]
+
 
