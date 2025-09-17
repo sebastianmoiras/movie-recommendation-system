@@ -19,7 +19,6 @@ def get_movie_detail(movieid: int):
     if not rows:
         return None
 
-    # Baris pertama berisi data film, genre bisa multiple
     movie = {
         "movieid": rows[0][0],
         "title": rows[0][1],
@@ -30,3 +29,4 @@ def get_movie_detail(movieid: int):
         "genres": [r[6] for r in rows if r[6]]
     }
     return movie
+
