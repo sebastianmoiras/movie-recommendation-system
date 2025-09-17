@@ -1,6 +1,5 @@
 FROM python:3.10-slim
 
-# Install dependency OS untuk psycopg2
 RUN apt-get update && apt-get install -y \
     gcc \
     g++ \
@@ -22,5 +21,5 @@ COPY . .
 # Expose FastAPI port
 EXPOSE 8000
 
-# Jalankan uvicorn
 CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
+
