@@ -3,7 +3,3 @@ description: >
   Data Science Student @ Binus University
 
 theme: jekyll-theme-minimal
-
-show_downloads: false
-
-markdown: kramdown
