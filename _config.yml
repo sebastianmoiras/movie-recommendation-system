@@ -1,5 +1,9 @@
 title: "Movie Recommendation System"
 description: >
-  Data Science Student @ Binus University
-
+  Portfolio project inspired by Netflix, combining collaborative filtering, 
+  content-based retrieval, and semantic search to recommend movies 
+  tailored to user preferences.
+author: "Jonathan Sebastian Moiras"
+github_username: sebastianmoiras
+show_downloads: false
 theme: jekyll-theme-minimal
