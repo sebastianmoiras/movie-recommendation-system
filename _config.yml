@@ -1,18 +1,18 @@
 title: "Movie Recommendation System"
 description: >
   Data Science Student @ Binus University
+  github_username: sebastianmoiras
+  linkedin: https://linkedin.com/in/jonathan-sebastian
+  email: jonathan@email.com
+
 
 theme: jekyll-theme-minimal
 
-pic: /assets/Notflix1.png  
-pic: /assets/Notflix2.png  
-pic: /assets/Notflix3.png  
-pic: /assets/Notflix4.png  
+logo: /assets/Notflix1.png  
+logo: /assets/Notflix2.png  
+logo: /assets/Notflix3.png  
+logo: /assets/Notflix4.png  
 
 show_downloads: false
-
-github_username: jonathansebastianmoiras
-linkedin: https://linkedin.com/in/jonathan-sebastian
-email: jonathan@email.com
 
 markdown: kramdown
