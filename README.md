@@ -20,3 +20,13 @@ Built as a portfolio project to showcase **machine learning, backend, and full-s
 - **Database**: Azure SQL / Supabase PostgreSQL
 - **ML/NLP**: Scikit-learn, HuggingFace (MiniLM embeddings), Pandas, Numpy
 - **Deployment**: Docker Hub, Streamlit Cloud, Azure VM (Virtual Machine)
+
+
+Preview:
+
+<img width="1508" height="807" alt="image" src="https://github.com/user-attachments/assets/567e15f8-692c-4272-a55a-6b3c8bcb1f3f" />
+
+<img width="1407" height="1414" alt="image" src="https://github.com/user-attachments/assets/a8a46b18-ea0b-4c2e-b7cf-b5b5a1959de8" />
+
+
+
