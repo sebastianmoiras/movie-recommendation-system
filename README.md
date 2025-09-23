@@ -1,4 +1,4 @@
-# Project overview
+# Project Description
 
 Notflix is a full-stack movie recommendation platform inspired by Netflix.  
 It combines **collaborative filtering, content-based retrieval, and semantic search using embeddings** to provide personalized movie recommendations.  
