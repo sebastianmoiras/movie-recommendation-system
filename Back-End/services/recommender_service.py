@@ -149,7 +149,6 @@ def _fallback_preferred_genres(userid: int, limit: int = 10):
             "movies": [{"movieid": r[0], "title": r[1], "poster_url": r[2]} for r in rows]
         }
 
-    # fallback terakhir → random movies
     cursor.execute(f"""
         SELECT movieid, title, poster_url
         FROM movies
@@ -179,5 +178,6 @@ def get_liked_movies(userid: int, limit: int = 50):
         {"movieid": r[0], "title": r[1], "poster_url": r[2]}
         for r in rows
     ]
+
 
 
